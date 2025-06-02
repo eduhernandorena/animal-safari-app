@@ -11,7 +11,7 @@ import {
   Globe, 
   Calendar, 
   DollarSign, 
-  Parking,
+  CircleParking,
   Coffee,
   ShoppingBag,
   Camera,
@@ -36,7 +36,7 @@ const ZooInfo = () => {
   ];
 
   const facilities = [
-    { icon: Parking, name: 'Estacionamento', description: 'Gratuito para visitantes' },
+    { icon: CircleParking, name: 'Estacionamento', description: 'Gratuito para visitantes' },
     { icon: Coffee, name: 'Restaurantes', description: '3 opções de alimentação' },
     { icon: ShoppingBag, name: 'Loja de Souvenirs', description: 'Produtos temáticos' },
     { icon: Camera, name: 'Áreas para Fotos', description: 'Cenários instagramáveis' }
