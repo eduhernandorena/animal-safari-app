@@ -1,29 +1,45 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { MapPin, Clock, Phone, Mail, Navigation, Camera } from 'lucide-react';
+import { MapPin, Clock, Navigation, Camera } from 'lucide-react';
 import ZooMap from '@/components/ZooMap';
 import AnimalList from '@/components/AnimalList';
 import AnimalDetails from '@/components/AnimalDetails';
 import ZooInfo from '@/components/ZooInfo';
+import { useToast } from '@/hooks/use-toast';
 
 const Index = () => {
   const [selectedAnimal, setSelectedAnimal] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState("map");
+  const [activeTab, setActiveTab] = useState('map');
+  const { toast } = useToast();
 
   const handleAnimalSelect = (animalId: string) => {
     setSelectedAnimal(animalId);
-    setActiveTab("animals");
+    setActiveTab('animals');
+  };
+
+  const handleGetVisitorLocation = () => {
+    if (!navigator.geolocation) {
+      toast({ title: 'Geolocalização indisponível', description: 'Seu navegador não oferece suporte a GPS.' });
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      () => {
+        toast({ title: 'Localização capturada', description: 'Sua posição foi autorizada com sucesso.' });
+      },
+      () => {
+        toast({ title: 'Permissão negada', description: 'Ative a localização para melhorar sua experiência no mapa.' });
+      }
+    );
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-emerald-50">
-      {/* Header */}
       <header className="bg-emerald-800 text-white shadow-lg">
         <div className="container mx-auto px-4 py-6">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between gap-3">
             <div className="flex items-center space-x-3">
               <div className="bg-emerald-600 p-2 rounded-full">
                 <Camera className="w-6 h-6" />
@@ -36,18 +52,7 @@ const Index = () => {
             <Button
               variant="outline"
               className="bg-emerald-700 border-emerald-600 text-white hover:bg-emerald-600"
-              onClick={() => {
-                if (navigator.geolocation) {
-                  navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                      console.log('Localização do visitante:', position.coords);
-                    },
-                    (error) => {
-                      console.error('Erro ao obter localização:', error);
-                    }
-                  );
-                }
-              }}
+              onClick={handleGetVisitorLocation}
             >
               <Navigation className="w-4 h-4 mr-2" />
               Minha Localização
@@ -56,7 +61,6 @@ const Index = () => {
         </div>
       </header>
 
-      {/* Main Content */}
       <div className="container mx-auto px-4 py-6">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-3 bg-white shadow-md">
@@ -94,9 +98,9 @@ const Index = () => {
 
             <TabsContent value="animals" className="space-y-4">
               {selectedAnimal ? (
-                <AnimalDetails 
-                  animalId={selectedAnimal} 
-                  onBack={() => setSelectedAnimal(null)} 
+                <AnimalDetails
+                  animalId={selectedAnimal}
+                  onBack={() => setSelectedAnimal(null)}
                 />
               ) : (
                 <AnimalList onAnimalSelect={setSelectedAnimal} />

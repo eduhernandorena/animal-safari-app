@@ -1,139 +1,67 @@
-
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Search, MapPin, Clock, Heart } from 'lucide-react';
-
-interface Animal {
-  id: string;
-  name: string;
-  species: string;
-  type: string;
-  emoji: string;
-  description: string;
-  habitat: string;
-  feedingTime: string;
-  status: 'Comum' | 'Ameaçado' | 'Crítico';
-  image: string;
-}
-
-const animals: Animal[] = [
-  {
-    id: 'lion',
-    name: 'Leão Africano',
-    species: 'Panthera leo',
-    type: 'Felino',
-    emoji: '🦁',
-    description: 'O rei da selva, conhecido por sua majestosa juba e rugido poderoso.',
-    habitat: 'Savana Africana',
-    feedingTime: '14:00',
-    status: 'Ameaçado',
-    image: '/placeholder.svg'
-  },
-  {
-    id: 'elephant',
-    name: 'Elefante Africano',
-    species: 'Loxodonta africana',
-    type: 'Mamífero',
-    emoji: '🐘',
-    description: 'O maior mamífero terrestre, conhecido por sua inteligência e memória.',
-    habitat: 'Savana e Florestas',
-    feedingTime: '10:00',
-    status: 'Ameaçado',
-    image: '/placeholder.svg'
-  },
-  {
-    id: 'giraffe',
-    name: 'Girafa',
-    species: 'Giraffa camelopardalis',
-    type: 'Mamífero',
-    emoji: '🦒',
-    description: 'O animal mais alto do mundo, com pescoço que pode chegar a 6 metros.',
-    habitat: 'Savana Africana',
-    feedingTime: '11:30',
-    status: 'Comum',
-    image: '/placeholder.svg'
-  },
-  {
-    id: 'penguin',
-    name: 'Pinguim Imperador',
-    species: 'Aptenodytes forsteri',
-    type: 'Ave',
-    emoji: '🐧',
-    description: 'Excelente nadador antártico, conhecido por sua dedicação parental.',
-    habitat: 'Antártica',
-    feedingTime: '15:30',
-    status: 'Comum',
-    image: '/placeholder.svg'
-  },
-  {
-    id: 'monkey',
-    name: 'Macaco-Prego',
-    species: 'Sapajus nigritus',
-    type: 'Primata',
-    emoji: '🐵',
-    description: 'Primata brasileiro muito inteligente, conhecido por usar ferramentas.',
-    habitat: 'Mata Atlântica',
-    feedingTime: '09:00',
-    status: 'Comum',
-    image: '/placeholder.svg'
-  },
-  {
-    id: 'tiger',
-    name: 'Tigre de Bengala',
-    species: 'Panthera tigris',
-    type: 'Felino',
-    emoji: '🐅',
-    description: 'Predador solitário com listras únicas, excelente nadador.',
-    habitat: 'Florestas Asiáticas',
-    feedingTime: '16:00',
-    status: 'Crítico',
-    image: '/placeholder.svg'
-  },
-  {
-    id: 'bear',
-    name: 'Urso Pardo',
-    species: 'Ursus arctos',
-    type: 'Mamífero',
-    emoji: '🐻',
-    description: 'Onívoro poderoso, conhecido por sua força e habilidades de pesca.',
-    habitat: 'Florestas Temperadas',
-    feedingTime: '13:00',
-    status: 'Comum',
-    image: '/placeholder.svg'
-  },
-  {
-    id: 'zebra',
-    name: 'Zebra de Planície',
-    species: 'Equus quagga',
-    type: 'Mamífero',
-    emoji: '🦓',
-    description: 'Equino selvagem com listras únicas que confundem predadores.',
-    habitat: 'Savana Africana',
-    feedingTime: '12:00',
-    status: 'Comum',
-    image: '/placeholder.svg'
-  }
-];
+import type { Animal } from '@/types/animal';
+import { getAnimals, getAnimalTypes } from '@/services/animalService';
+import { useToast } from '@/hooks/use-toast';
 
 interface AnimalListProps {
   onAnimalSelect: (animalId: string) => void;
 }
 
+const FAVORITES_STORAGE_KEY = 'zooexplorer-favorites';
+
 const AnimalList: React.FC<AnimalListProps> = ({ onAnimalSelect }) => {
+  const [animals, setAnimals] = useState<Animal[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedType, setSelectedType] = useState<string>('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [favorites, setFavorites] = useState<string[]>([]);
+  const { toast } = useToast();
 
-  const filteredAnimals = animals.filter(animal => {
-    const matchesSearch = animal.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         animal.species.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesType = selectedType === '' || animal.type === selectedType;
-    return matchesSearch && matchesType;
-  });
+  useEffect(() => {
+    try {
+      const storedFavorites = localStorage.getItem(FAVORITES_STORAGE_KEY);
+      if (storedFavorites) {
+        setFavorites(JSON.parse(storedFavorites));
+      }
+    } catch {
+      setFavorites([]);
+    }
+  }, []);
 
-  const animalTypes = [...new Set(animals.map(animal => animal.type))];
+  useEffect(() => {
+    const loadAnimals = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const loadedAnimals = await getAnimals();
+        setAnimals(loadedAnimals);
+      } catch {
+        setError('Não foi possível carregar os animais.');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    void loadAnimals();
+  }, []);
+
+  const filteredAnimals = useMemo(() => {
+    return animals.filter((animal) => {
+      const matchesSearch =
+        animal.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        animal.species.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesType = selectedType === '' || animal.type === selectedType;
+      return matchesSearch && matchesType;
+    });
+  }, [animals, searchTerm, selectedType]);
+
+  const animalTypes = useMemo(() => getAnimalTypes(), []);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -143,9 +71,41 @@ const AnimalList: React.FC<AnimalListProps> = ({ onAnimalSelect }) => {
     }
   };
 
+  const toggleFavorite = (animalId: string, animalName: string) => {
+    const nextFavorites = favorites.includes(animalId)
+      ? favorites.filter((id) => id !== animalId)
+      : [...favorites, animalId];
+
+    setFavorites(nextFavorites);
+    localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(nextFavorites));
+
+    toast({
+      title: favorites.includes(animalId) ? 'Favorito removido' : 'Favorito salvo',
+      description: `${animalName} ${favorites.includes(animalId) ? 'foi removido dos' : 'foi adicionado aos'} favoritos.`
+    });
+  };
+
+  if (isLoading) {
+    return (
+      <Card className="shadow-lg border-0">
+        <CardContent className="text-center py-12 text-gray-600">Carregando animais...</CardContent>
+      </Card>
+    );
+  }
+
+  if (error) {
+    return (
+      <Card className="shadow-lg border-0">
+        <CardContent className="text-center py-12 space-y-3">
+          <p className="text-red-600">{error}</p>
+          <Button onClick={() => window.location.reload()} variant="outline">Tentar novamente</Button>
+        </CardContent>
+      </Card>
+    );
+  }
+
   return (
     <div className="space-y-6">
-      {/* Filtros */}
       <Card className="shadow-lg border-0">
         <CardHeader className="bg-emerald-600 text-white rounded-t-lg">
           <CardTitle className="flex items-center space-x-2">
@@ -172,7 +132,7 @@ const AnimalList: React.FC<AnimalListProps> = ({ onAnimalSelect }) => {
               >
                 Todos
               </Button>
-              {animalTypes.map(type => (
+              {animalTypes.map((type) => (
                 <Button
                   key={type}
                   variant={selectedType === type ? 'default' : 'outline'}
@@ -188,15 +148,27 @@ const AnimalList: React.FC<AnimalListProps> = ({ onAnimalSelect }) => {
         </CardContent>
       </Card>
 
-      {/* Lista de Animais */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredAnimals.map((animal) => (
-          <Card 
-            key={animal.id} 
+          <Card
+            key={animal.id}
             className="group hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:scale-105 border-0 shadow-lg"
             onClick={() => onAnimalSelect(animal.id)}
           >
             <CardHeader className="text-center pb-2">
+              <div className="flex justify-end">
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  className="h-8 w-8"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleFavorite(animal.id, animal.name);
+                  }}
+                >
+                  <Heart className={`w-4 h-4 ${favorites.includes(animal.id) ? 'fill-red-500 text-red-500' : 'text-gray-400'}`} />
+                </Button>
+              </div>
               <div className="text-6xl mb-2 group-hover:scale-110 transition-transform duration-300">
                 {animal.emoji}
               </div>
@@ -212,11 +184,11 @@ const AnimalList: React.FC<AnimalListProps> = ({ onAnimalSelect }) => {
                   {animal.status}
                 </Badge>
               </div>
-              
+
               <p className="text-sm text-gray-600 line-clamp-3">
                 {animal.description}
               </p>
-              
+
               <div className="space-y-2 text-xs text-gray-500">
                 <div className="flex items-center space-x-1">
                   <MapPin className="w-3 h-3" />
@@ -228,10 +200,7 @@ const AnimalList: React.FC<AnimalListProps> = ({ onAnimalSelect }) => {
                 </div>
               </div>
 
-              <Button 
-                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white"
-                size="sm"
-              >
+              <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white" size="sm">
                 Ver Detalhes
               </Button>
             </CardContent>
