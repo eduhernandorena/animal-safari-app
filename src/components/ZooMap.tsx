@@ -3,7 +3,10 @@ import { Button } from '@/components/ui/button';
 import { Info, Navigation, ExternalLink } from 'lucide-react';
 import type { Animal } from '@/types/animal';
 import { getAnimals } from '@/services/animalService';
-import { useToast } from '@/hooks/use-toast';
+import { useGpsTracking } from '@/hooks/useGpsTracking';
+import VisitorMarker from '@/components/VisitorMarker';
+import GpsErrorMessage from '@/components/GpsErrorMessage';
+import RouteToZooDialog from '@/components/RouteToZooDialog';
 
 interface ZooMapProps {
   onAnimalSelect: (animalId: string) => void;
@@ -13,10 +16,20 @@ const OFFICIAL_MAP_URL = 'https://www.sema.rs.gov.br/upload/recortes/202510/2811
 const OFFICIAL_PAGE_URL = 'https://www.sema.rs.gov.br/mapa-do-zoo';
 
 const ZooMap: React.FC<ZooMapProps> = ({ onAnimalSelect }) => {
-  const [userLocation, setUserLocation] = useState<{ x: number; y: number } | null>(null);
   const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
   const [animalLocations, setAnimalLocations] = useState<Animal[]>([]);
-  const { toast } = useToast();
+
+  const {
+    imagePosition,
+    isInsideZoo,
+    isLowAccuracy,
+    error,
+    hasPromptedForRoute,
+    requestSinglePosition,
+    markRoutePrompted,
+  } = useGpsTracking();
+
+  const userLocation = imagePosition;
 
   useEffect(() => {
     const loadAnimalLocations = async () => {
@@ -25,31 +38,11 @@ const ZooMap: React.FC<ZooMapProps> = ({ onAnimalSelect }) => {
     };
 
     void loadAnimalLocations();
-    setUserLocation({ x: 8, y: 52 });
   }, []);
 
   const handleLocationClick = (animal: Animal) => {
     setSelectedLocation(animal.id);
     onAnimalSelect(animal.id);
-  };
-
-  const updateVisitorLocation = () => {
-    if (!navigator.geolocation) {
-      toast({ title: 'Geolocalizacao indisponivel', description: 'Seu navegador nao oferece suporte a GPS.' });
-      return;
-    }
-
-    navigator.geolocation.getCurrentPosition(
-      () => {
-        const newX = Math.random() * 85 + 5;
-        const newY = Math.random() * 70 + 15;
-        setUserLocation({ x: newX, y: newY });
-        toast({ title: 'Localizacao atualizada', description: 'Posicao simulada no mapa interno do Zoo.' });
-      },
-      () => {
-        toast({ title: 'Nao foi possivel obter sua localizacao', description: 'Verifique as permissoes de localizacao.' });
-      }
-    );
   };
 
   return (
@@ -62,16 +55,36 @@ const ZooMap: React.FC<ZooMapProps> = ({ onAnimalSelect }) => {
 
       <div className="absolute inset-0 bg-black/5" />
 
-      {userLocation && (
-        <div
-          className="absolute transform -translate-x-1/2 -translate-y-1/2 z-20"
-          style={{ left: `${userLocation.x}%`, top: `${userLocation.y}%` }}
-          aria-label="Sua localizacao"
-        >
-          <div className="bg-blue-600 w-4 h-4 rounded-full border-2 border-white shadow-lg">
-            <div className="absolute -top-1 -left-1 w-6 h-6 bg-blue-500 rounded-full opacity-35 animate-ping" />
-          </div>
+      {/* GPS error overlay */}
+      {error !== null && (
+        <div className="absolute top-4 left-4 right-4 z-30">
+          <GpsErrorMessage errorType={error} />
         </div>
+      )}
+
+      {/* Visitor marker — only when inside zoo and position is known */}
+      {isInsideZoo && userLocation !== null && (
+        <VisitorMarker position={userLocation} isLowAccuracy={isLowAccuracy} />
+      )}
+
+      {/* Outside zoo message */}
+      {!isInsideZoo && !error && userLocation !== null && (
+        <div className="absolute top-4 left-4 right-4 z-30 flex items-center gap-2 rounded-lg bg-amber-50 border border-amber-200 px-4 py-3 text-sm text-amber-800 shadow-sm">
+          <span>Você está fora da área do zoo.</span>
+        </div>
+      )}
+
+      {/* Route to zoo dialog — shown only once per session */}
+      {!isInsideZoo && !error && userLocation !== null && !hasPromptedForRoute && (
+        <RouteToZooDialog
+          open={true}
+          onConfirm={() => {
+            markRoutePrompted();
+          }}
+          onCancel={() => {
+            markRoutePrompted();
+          }}
+        />
       )}
 
       {animalLocations.map((animal) => (
@@ -120,7 +133,7 @@ const ZooMap: React.FC<ZooMapProps> = ({ onAnimalSelect }) => {
           size="sm"
           variant="outline"
           className="bg-white/95 shadow-lg"
-          onClick={updateVisitorLocation}
+          onClick={requestSinglePosition}
           aria-label="Atualizar localizacao"
         >
           <Navigation className="w-4 h-4" />
