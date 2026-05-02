@@ -164,6 +164,14 @@ const ZooInfo = () => {
             })}
           </div>
 
+          <div className="p-4 bg-blue-50 rounded-lg text-sm text-blue-900 flex gap-2">
+            <Info className="w-4 h-4 mt-0.5 shrink-0 text-blue-700" />
+            <p>
+              Para o acesso de veículos é cobrada uma <strong>tarifa única independente do número de passageiros</strong>,
+              não sendo necessária a compra de ingresso individual.
+            </p>
+          </div>
+
           <div className="p-4 bg-amber-50 rounded-lg text-sm text-amber-900 flex gap-2">
             <AlertTriangle className="w-4 h-4 mt-0.5 shrink-0" />
             <p>
