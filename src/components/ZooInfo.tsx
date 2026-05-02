@@ -17,29 +17,29 @@ import {
 
 const ZooInfo = () => {
   const schedules = [
-    { day: 'Terca a domingo', hours: '09:00 - 17:00' }
+    { day: 'Terça a domingo', hours: '09:00 - 17:00' }
   ];
 
   const pedestrianPrices = [
     { category: 'Adultos', price: 'R$ 10,00', description: 'Ingresso individual' },
     { category: 'Idosos (60+)', price: 'R$ 5,00', description: 'Com documento' },
     { category: 'Estudantes', price: 'R$ 5,00', description: 'Com comprovante' },
-    { category: 'Criancas ate 5 anos', price: 'Isentas', description: 'Sem cobranca' }
+    { category: 'Crianças até 5 anos', price: 'Isentas', description: 'Sem cobrança' }
   ];
 
   const vehiclePrices = [
-    { category: 'Automovel', price: 'R$ 50,00' },
+    { category: 'Automóvel', price: 'R$ 50,00' },
     { category: 'Motocicleta', price: 'R$ 20,00' },
-    { category: 'Onibus', price: 'R$ 317,00' },
-    { category: 'Micro-onibus', price: 'R$ 161,50' },
-    { category: 'Kombi/Lotacao/Van (ate 12)', price: 'R$ 81,00' },
+    { category: 'Ônibus', price: 'R$ 317,00' },
+    { category: 'Micro-ônibus', price: 'R$ 161,50' },
+    { category: 'Kombi/Lotação/Van (até 12)', price: 'R$ 81,00' },
     { category: 'Van (13+)', price: 'R$ 94,50' }
   ];
 
   const facilities = [
-    { icon: CircleParking, name: 'Estacionamentos', description: 'Infraestrutura de acesso para veiculos' },
-    { icon: MapPin, name: 'Entradas', description: 'Entrada de pedestres e entrada de veiculos' },
-    { icon: Landmark, name: 'Servicos', description: 'Bilheteria, administracao e informacoes' }
+    { icon: CircleParking, name: 'Estacionamentos', description: 'Infraestrutura de acesso para veículos' },
+    { icon: MapPin, name: 'Entradas', description: 'Entrada de pedestres e entrada de veículos' },
+    { icon: Landmark, name: 'Serviços', description: 'Bilheteria, administração e informações' }
   ];
 
   return (
@@ -48,38 +48,39 @@ const ZooInfo = () => {
         <CardHeader className="bg-emerald-700 text-white rounded-t-lg">
           <CardTitle className="flex items-center space-x-2">
             <MapPin className="w-5 h-5" />
-            <span>Parque Zoologico de Sapucaia do Sul (SEMA-RS)</span>
+            <span>Parque Zoológico de Sapucaia do Sul (SEMA-RS)</span>
           </CardTitle>
         </CardHeader>
         <CardContent className="p-6 space-y-4">
           <p className="text-gray-700">
-            O parque e apresentado pela SEMA-RS como centro de educacao ambiental, conservacao da fauna e acolhimento
-            de animais silvestres resgatados. O plantel informado inclui mais de 1.000 animais de cerca de 130 especies.
+            O parque é apresentado pela SEMA-RS como centro de educação ambiental, conservação da fauna e acolhimento
+            de animais silvestres resgatados. O plantel informado inclui mais de 1.000 animais de cerca de 130 espécies.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
               <h3 className="font-semibold text-emerald-800 flex items-center">
                 <MapPin className="w-4 h-4 mr-2" />
-                Localizacao
+                Localização
               </h3>
               <div className="text-sm space-y-1 text-gray-700">
                 <p>BR-116, parada 41, Km 252</p>
                 <p>Sapucaia do Sul - RS</p>
-                <p>Referencia oficial: portal da SEMA-RS</p>
+                <p>Referência oficial: portal da SEMA-RS</p>
               </div>
             </div>
 
             <div className="space-y-2">
               <h3 className="font-semibold text-emerald-800 flex items-center">
                 <Info className="w-4 h-4 mr-2" />
-                Destaques do Plantel
+                Regras de Visita
               </h3>
-              <p className="text-sm text-gray-700">
-                Entre os destaques citados no site oficial estao sucuri, jacare-do-papo-amarelo, araras,
-                flamingo-chileno, tigre, capivara, onca-pintada, urso-andino, tamandua-bandeira,
-                rinoceronte-branco e chimpanze.
-              </p>
+              <ul className="text-sm text-gray-700 space-y-1 list-disc list-inside">
+                <li>Não alimentar os animais</li>
+                <li>Não jogar lixo no recinto</li>
+                <li>Crianças devem estar acompanhadas</li>
+                <li>Animais domésticos não são permitidos</li>
+              </ul>
             </div>
           </div>
         </CardContent>
@@ -103,7 +104,7 @@ const ZooInfo = () => {
               </div>
             ))}
             <div className="p-3 bg-amber-50 rounded-lg text-xs text-amber-800">
-              Horarios e operacao podem mudar. Confira sempre a pagina oficial antes da visita.
+              Horários e operação podem mudar. Confira sempre a página oficial antes da visita.
             </div>
           </CardContent>
         </Card>
@@ -128,7 +129,7 @@ const ZooInfo = () => {
               </div>
             ))}
             <p className="text-xs text-gray-600 pt-2">
-              Compra na bilheteria do portico de entrada. Formas de pagamento informadas: dinheiro ou PIX.
+              Compra na bilheteria do pórtico de entrada. Formas de pagamento: dinheiro ou PIX.
             </p>
           </CardContent>
         </Card>
@@ -175,8 +176,8 @@ const ZooInfo = () => {
           <div className="p-4 bg-amber-50 rounded-lg text-sm text-amber-900 flex gap-2">
             <AlertTriangle className="w-4 h-4 mt-0.5 shrink-0" />
             <p>
-              Para taxa escolar, a solicitacao deve ser enviada por e-mail para <strong>zoo@sema.rs.gov.br</strong>.
-              No portal oficial, a taxa escolar nao substitui eventual agendamento de visita monitorada.
+              Para taxa escolar, a solicitação deve ser enviada por e-mail para <strong>zoo@sema.rs.gov.br</strong>.
+              A taxa escolar não substitui eventual agendamento de visita monitorada.
             </p>
           </div>
         </CardContent>
@@ -193,7 +194,7 @@ const ZooInfo = () => {
           <div className="space-y-2 text-sm text-gray-700">
             <p className="flex items-center gap-2"><Mail className="w-4 h-4 text-emerald-700" />zoo@sema.rs.gov.br</p>
             <p className="flex items-center gap-2"><Globe className="w-4 h-4 text-emerald-700" />sema.rs.gov.br/zoologico</p>
-            <p className="text-xs text-gray-600">Dados sincronizados com as paginas oficiais da SEMA-RS em 24/04/2026.</p>
+            <p className="text-xs text-gray-600">Dados sincronizados com as páginas oficiais da SEMA-RS em 24/04/2026.</p>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3">

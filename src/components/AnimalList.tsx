@@ -53,6 +53,8 @@ const AnimalList: React.FC<AnimalListProps> = ({ onAnimalSelect }) => {
 
   const filteredAnimals = useMemo(() => {
     return animals.filter((animal) => {
+      // Serviços (entrada, restaurante, informações) não aparecem na lista
+      if (animal.type === 'Servico') return false;
       const matchesSearch =
         animal.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         animal.species.toLowerCase().includes(searchTerm.toLowerCase());
@@ -61,7 +63,7 @@ const AnimalList: React.FC<AnimalListProps> = ({ onAnimalSelect }) => {
     });
   }, [animals, searchTerm, selectedType]);
 
-  const animalTypes = useMemo(() => getAnimalTypes(), []);
+  const animalTypes = useMemo(() => getAnimalTypes().filter(t => t !== 'Servico'), []);
 
   const getStatusColor = (status: string) => {
     switch (status) {

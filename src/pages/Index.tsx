@@ -1,118 +1,89 @@
 import React, { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { MapPin, Clock, Navigation, Camera } from 'lucide-react';
+import { MapPin, PawPrint, Info } from 'lucide-react';
 import ZooMap from '@/components/ZooMap';
 import AnimalList from '@/components/AnimalList';
 import AnimalDetails from '@/components/AnimalDetails';
 import ZooInfo from '@/components/ZooInfo';
-import { useToast } from '@/hooks/use-toast';
 
 const Index = () => {
   const [selectedAnimal, setSelectedAnimal] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState('map');
-  const { toast } = useToast();
+  const [activeTab, setActiveTab] = useState<'map' | 'animals' | 'info'>('map');
 
   const handleAnimalSelect = (animalId: string) => {
     setSelectedAnimal(animalId);
     setActiveTab('animals');
   };
 
-  const handleGetVisitorLocation = () => {
-    if (!navigator.geolocation) {
-      toast({ title: 'Geolocalização indisponível', description: 'Seu navegador não oferece suporte a GPS.' });
-      return;
-    }
-
-    navigator.geolocation.getCurrentPosition(
-      () => {
-        toast({ title: 'Localização capturada', description: 'Sua posição foi autorizada com sucesso.' });
-      },
-      () => {
-        toast({ title: 'Permissão negada', description: 'Ative a localização para melhorar sua experiência no mapa.' });
-      }
-    );
-  };
+  const tabs = [
+    { id: 'map',     label: 'Mapa',        Icon: MapPin    },
+    { id: 'animals', label: 'Animais',     Icon: PawPrint  },
+    { id: 'info',    label: 'Informações', Icon: Info      },
+  ] as const;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-50 to-emerald-50">
-      <header className="bg-emerald-800 text-white shadow-lg">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center space-x-3">
-              <div className="bg-emerald-600 p-2 rounded-full">
-                <Camera className="w-6 h-6" />
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold">ZooExplorer</h1>
-                <p className="text-emerald-200 text-sm">Descubra a vida selvagem</p>
-              </div>
+    <div className="min-h-screen bg-gradient-to-b from-green-50 to-emerald-50 flex flex-col">
+
+      {/* ── Header ── */}
+      <header className="bg-emerald-800 text-white shadow-lg shrink-0">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center gap-3">
+            <span className="text-3xl" aria-hidden="true">🦁</span>
+            <div>
+              <h1 className="text-xl font-bold leading-tight">ZooExplorer</h1>
+              <p className="text-emerald-300 text-xs">Parque Zoológico de Sapucaia do Sul</p>
             </div>
-            <Button
-              variant="outline"
-              className="bg-emerald-700 border-emerald-600 text-white hover:bg-emerald-600"
-              onClick={handleGetVisitorLocation}
-            >
-              <Navigation className="w-4 h-4 mr-2" />
-              Minha Localização
-            </Button>
           </div>
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-6">
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-3 bg-white shadow-md">
-            <TabsTrigger value="map" className="flex items-center space-x-2">
-              <MapPin className="w-4 h-4" />
-              <span>Mapa</span>
-            </TabsTrigger>
-            <TabsTrigger value="animals" className="flex items-center space-x-2">
-              <Camera className="w-4 h-4" />
-              <span>Animais</span>
-            </TabsTrigger>
-            <TabsTrigger value="info" className="flex items-center space-x-2">
-              <Clock className="w-4 h-4" />
-              <span>Informações</span>
-            </TabsTrigger>
-          </TabsList>
+      {/* ── Content ── */}
+      <main className="flex-1 container mx-auto px-4 py-4 pb-24 overflow-y-auto">
+        {activeTab === 'map' && (
+          <ZooMap onAnimalSelect={handleAnimalSelect} />
+        )}
 
-          <div className="mt-6">
-            <TabsContent value="map" className="space-y-4">
-              <Card className="shadow-lg border-0">
-                <CardHeader className="bg-emerald-600 text-white rounded-t-lg">
-                  <CardTitle className="flex items-center space-x-2">
-                    <MapPin className="w-5 h-5" />
-                    <span>Mapa do Zoológico</span>
-                  </CardTitle>
-                  <CardDescription className="text-emerald-100">
-                    Explore o zoológico e encontre seus animais favoritos
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="p-0">
-                  <ZooMap onAnimalSelect={handleAnimalSelect} />
-                </CardContent>
-              </Card>
-            </TabsContent>
+        {activeTab === 'animals' && (
+          selectedAnimal ? (
+            <AnimalDetails
+              animalId={selectedAnimal}
+              onBack={() => setSelectedAnimal(null)}
+            />
+          ) : (
+            <AnimalList onAnimalSelect={setSelectedAnimal} />
+          )
+        )}
 
-            <TabsContent value="animals" className="space-y-4">
-              {selectedAnimal ? (
-                <AnimalDetails
-                  animalId={selectedAnimal}
-                  onBack={() => setSelectedAnimal(null)}
-                />
-              ) : (
-                <AnimalList onAnimalSelect={setSelectedAnimal} />
-              )}
-            </TabsContent>
+        {activeTab === 'info' && (
+          <ZooInfo />
+        )}
+      </main>
 
-            <TabsContent value="info" className="space-y-4">
-              <ZooInfo />
-            </TabsContent>
-          </div>
-        </Tabs>
-      </div>
+      {/* ── Bottom Navigation ── */}
+      <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50">
+        <div className="container mx-auto flex">
+          {tabs.map(({ id, label, Icon }) => {
+            const active = activeTab === id;
+            return (
+              <button
+                key={id}
+                onClick={() => {
+                  setActiveTab(id);
+                  if (id !== 'animals') setSelectedAnimal(null);
+                }}
+                className={`flex-1 flex flex-col items-center justify-center gap-1 py-3 text-xs font-medium transition-colors ${
+                  active
+                    ? 'text-emerald-700 border-t-2 border-emerald-600 -mt-px bg-emerald-50'
+                    : 'text-gray-500 hover:text-emerald-600'
+                }`}
+                aria-current={active ? 'page' : undefined}
+              >
+                <Icon className="w-5 h-5" />
+                {label}
+              </button>
+            );
+          })}
+        </div>
+      </nav>
     </div>
   );
 };
