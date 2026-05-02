@@ -26,7 +26,7 @@ export const animals: Animal[] = [
     ],
     conservation: 'A especie tem historico de pressao por caca ilegal.',
     location: 'Recinto dos Rinocerontes',
-    mapPosition: { x: 35.9, y: 42.6 },
+    mapPosition: { x: 35.6, y: 42 },
   },
 
   // ── Hipopótamo ───────────────────────────────────────────────────────────────
@@ -160,7 +160,7 @@ export const animals: Animal[] = [
     facts: [],
     conservation: '—',
     location: 'Recinto dos Primatas',
-    mapPosition: { x: 50.0, y: 55.0 }, // posição provisória — calibrar
+    mapPosition: { x: 42.7, y: 45.9 },
   },
 
   // ── Flamingos ────────────────────────────────────────────────────────────────
@@ -185,7 +185,7 @@ export const animals: Animal[] = [
     ],
     conservation: 'Depende da qualidade de lagoas e areas umidas.',
     location: 'Area do Lago',
-    mapPosition: { x: 65.0, y: 45.0 }, // posição provisória — calibrar
+    mapPosition: { x: 53.3, y: 34.4 },
   },
 
   // ── Capivaras ────────────────────────────────────────────────────────────────
@@ -210,7 +210,7 @@ export const animals: Animal[] = [
     ],
     conservation: 'Depende da integridade de margens de rios, lagos e banhados.',
     location: 'Area do Lago',
-    mapPosition: { x: 68.0, y: 50.0 }, // posição provisória — calibrar
+    mapPosition: { x: 61.1, y: 48.9 },
   },
 
   // ── Alces / Cervídeos ────────────────────────────────────────────────────────
@@ -235,7 +235,7 @@ export const animals: Animal[] = [
     ],
     conservation: 'Populacoes dependem da conservacao de florestas e areas abertas.',
     location: 'Recinto dos Cervídeos',
-    mapPosition: { x: 72.0, y: 35.0 }, // posição provisória — calibrar
+    mapPosition: { x: 74.6, y: 53.7 },
   },
 
   // ── Zebras ───────────────────────────────────────────────────────────────────
@@ -260,7 +260,7 @@ export const animals: Animal[] = [
     ],
     conservation: 'Algumas especies de zebra enfrentam pressao por perda de habitat.',
     location: 'Recinto dos Herbivoros',
-    mapPosition: { x: 20.0, y: 50.0 }, // posição provisória — calibrar
+    mapPosition: { x: 10.9, y: 41.8 },
   },
 
   // ── Avestruzes ───────────────────────────────────────────────────────────────
@@ -285,7 +285,7 @@ export const animals: Animal[] = [
     ],
     conservation: 'Especie nao ameacada, amplamente criada em cativeiro.',
     location: 'Recinto das Aves Terrestres',
-    mapPosition: { x: 30.0, y: 55.0 }, // posição provisória — calibrar
+    mapPosition: { x: 7.9, y: 40.4 },
   },
 
   // ── Área de Alimentação (serviço) ────────────────────────────────────────────
