@@ -3,25 +3,6 @@ import type { Animal } from '@/types/animal';
 const NAO_INFORMADO = 'Nao informado no site oficial';
 const ALIMENTACAO_LOCAL = 'Consulte a equipe no local';
 
-/**
- * Plantel do Parque Zoológico de Sapucaia do Sul.
- *
- * Apenas os recintos com coordenadas GPS medidas in loco possuem pins no mapa.
- * As posições percentuais (mapPosition) foram calculadas por normalização linear
- * a partir das coordenadas GPS reais — veja zoo-control-points.ts para detalhes.
- *
- * Coordenadas de referência:
- *   rinocerontes    → GPS -29.7957764, -51.1733016  → imageX 27.5, imageY 28.8
- *   hipopotamo      → GPS -29.7948709, -51.1725962  → imageX 34.5, imageY 17.5
- *   repteis         → GPS -29.7942401, -51.1714897  → imageX 45.4, imageY  9.7
- *   felinos e ursos → GPS -29.7939282, -51.1722501  → imageX 37.9, imageY  5.8
- *   aves            → GPS -29.7935546, -51.1711893  → imageX 48.4, imageY  1.2
- *   elefantes       → GPS -29.7952270, -51.1760642  → imageX  0.0, imageY 22.0
- *   alimentacao     → GPS -29.7985695, -51.1715447  → imageX 44.8, imageY 63.6
- *   lhamas          → GPS -29.7956309, -51.1746749  → imageX 13.8, imageY 27.0
- *   informacoes     → GPS -29.7958578, -51.1717834  → imageX 42.4, imageY 29.8
- *   entrada         → GPS -29.8015603, -51.1659926  → imageX100.0, imageY100.0
- */
 export const animals: Animal[] = [
   // ── Rinocerontes ────────────────────────────────────────────────────────────
   {
@@ -73,77 +54,65 @@ export const animals: Animal[] = [
     mapPosition: { x: 39.4, y: 38.2 },
   },
 
-  // ── Répteis ──────────────────────────────────────────────────────────────────
+  // ── Répteis (recinto coletivo) ───────────────────────────────────────────────
   {
     id: 'repteis',
     name: 'Repteis',
     species: 'Diversas especies',
-    type: 'Reptil',
+    type: 'Recinto',
     emoji: '🐍',
-    description: 'Casa dos repteis com sucuri, jiboias, jabutis, jacare-do-papo-amarelo, cagado-de-barbichas e piton-indiana.',
+    description: 'Casa dos repteis do Parque Zoologico de Sapucaia do Sul.',
     habitat: 'Casa dos Repteis',
     feedingTime: ALIMENTACAO_LOCAL,
     status: 'Ameaçado',
     image: '/placeholder.svg',
-    weight: NAO_INFORMADO,
-    lifespan: NAO_INFORMADO,
-    diet: NAO_INFORMADO,
-    facts: [
-      'Sucuri, jiboia e piton-indiana sao serpentes de grande porte',
-      'Jacare-do-papo-amarelo e especie nativa brasileira',
-      'Jabutis e cagados sao quelonios presentes no recinto',
-    ],
-    conservation: 'As especies dependem da protecao de habitats aquaticos e terrestres.',
+    weight: '—',
+    lifespan: '—',
+    diet: '—',
+    facts: [],
+    conservation: '—',
     location: 'Casa dos Repteis',
     mapPosition: { x: 44.9, y: 36.2 },
   },
 
-  // ── Felinos e Ursos ──────────────────────────────────────────────────────────
+  // ── Felinos e Ursos (recinto coletivo) ──────────────────────────────────────
   {
     id: 'felinos-e-ursos',
     name: 'Felinos e Ursos',
     species: 'Diversas especies',
-    type: 'Mamifero',
+    type: 'Recinto',
     emoji: '🐆',
-    description: 'Recinto dos grandes carnivoros: tigre, onca-pintada e urso-andino.',
+    description: 'Recinto dos grandes carnivoros do Parque Zoologico de Sapucaia do Sul.',
     habitat: 'Recinto de Felinos e Ursos',
     feedingTime: ALIMENTACAO_LOCAL,
     status: 'Crítico',
     image: '/placeholder.svg',
-    weight: NAO_INFORMADO,
-    lifespan: NAO_INFORMADO,
-    diet: NAO_INFORMADO,
-    facts: [
-      'Tigre e o maior felino do mundo',
-      'Onca-pintada e o maior felino das Americas',
-      'Urso-andino e o unico urso nativo da America do Sul',
-    ],
-    conservation: 'Todas as especies enfrentam ameacas por perda de habitat e caca.',
+    weight: '—',
+    lifespan: '—',
+    diet: '—',
+    facts: [],
+    conservation: '—',
     location: 'Recinto de Felinos e Ursos',
     mapPosition: { x: 38.5, y: 31.5 },
   },
 
-  // ── Aves ─────────────────────────────────────────────────────────────────────
+  // ── Aves (recinto coletivo) ──────────────────────────────────────────────────
   {
     id: 'aves',
     name: 'Aves',
     species: 'Diversas especies',
-    type: 'Ave',
+    type: 'Recinto',
     emoji: '🦜',
-    description: 'Recinto das aves com araras, flamingos, condor-dos-andes, tucanos, corujas, cisnes, gavioes e casuar.',
+    description: 'Recinto das aves do Parque Zoologico de Sapucaia do Sul.',
     habitat: 'Recinto das Aves',
     feedingTime: ALIMENTACAO_LOCAL,
     status: 'Ameaçado',
     image: '/placeholder.svg',
-    weight: NAO_INFORMADO,
-    lifespan: NAO_INFORMADO,
-    diet: NAO_INFORMADO,
-    facts: [
-      'Condor-dos-andes e uma das maiores aves voadoras do mundo',
-      'Araras sao simbolos da fauna brasileira',
-      'Flamingos tem coloracao relacionada a dieta',
-    ],
-    conservation: 'Muitas especies sao impactadas por trafico e desmatamento.',
+    weight: '—',
+    lifespan: '—',
+    diet: '—',
+    facts: [],
+    conservation: '—',
     location: 'Recinto das Aves',
     mapPosition: { x: 48.7, y: 39.4 },
   },
@@ -173,14 +142,160 @@ export const animals: Animal[] = [
     mapPosition: { x: 14.2, y: 38.4 },
   },
 
-  // ── Área de Alimentação ──────────────────────────────────────────────────────
+  // ── Primatas (recinto coletivo) ──────────────────────────────────────────────
+  {
+    id: 'primatas',
+    name: 'Primatas',
+    species: 'Diversas especies',
+    type: 'Recinto',
+    emoji: '🐵',
+    description: 'Recinto dos primatas do Parque Zoologico de Sapucaia do Sul.',
+    habitat: 'Recinto dos Primatas',
+    feedingTime: ALIMENTACAO_LOCAL,
+    status: 'Crítico',
+    image: '/placeholder.svg',
+    weight: '—',
+    lifespan: '—',
+    diet: '—',
+    facts: [],
+    conservation: '—',
+    location: 'Recinto dos Primatas',
+    mapPosition: { x: 50.0, y: 55.0 }, // posição provisória — calibrar
+  },
+
+  // ── Flamingos ────────────────────────────────────────────────────────────────
+  {
+    id: 'flamingos',
+    name: 'Flamingos',
+    species: 'Phoenicopterus chilensis',
+    type: 'Ave',
+    emoji: '🦩',
+    description: 'Flamingo-chileno, ave aquatica destacada no plantel oficial.',
+    habitat: 'Area do Lago',
+    feedingTime: ALIMENTACAO_LOCAL,
+    status: 'Comum',
+    image: '/placeholder.svg',
+    weight: NAO_INFORMADO,
+    lifespan: NAO_INFORMADO,
+    diet: NAO_INFORMADO,
+    facts: [
+      'Vive em grupos',
+      'Coloracao rosada relacionada a dieta rica em carotenoides',
+      'Destaque oficial de aves aquaticas',
+    ],
+    conservation: 'Depende da qualidade de lagoas e areas umidas.',
+    location: 'Area do Lago',
+    mapPosition: { x: 65.0, y: 45.0 }, // posição provisória — calibrar
+  },
+
+  // ── Capivaras ────────────────────────────────────────────────────────────────
+  {
+    id: 'capivaras',
+    name: 'Capivaras',
+    species: 'Hydrochoerus hydrochaeris',
+    type: 'Mamifero',
+    emoji: '🦫',
+    description: 'Maior roedor do mundo, presente no plantel oficial do zoo.',
+    habitat: 'Area do Lago',
+    feedingTime: ALIMENTACAO_LOCAL,
+    status: 'Comum',
+    image: '/placeholder.svg',
+    weight: NAO_INFORMADO,
+    lifespan: NAO_INFORMADO,
+    diet: NAO_INFORMADO,
+    facts: [
+      'Maior roedor do mundo',
+      'Semiaquatica, vive proxima a rios e lagos',
+      'Animal social, vive em grupos',
+    ],
+    conservation: 'Depende da integridade de margens de rios, lagos e banhados.',
+    location: 'Area do Lago',
+    mapPosition: { x: 68.0, y: 50.0 }, // posição provisória — calibrar
+  },
+
+  // ── Alces / Cervídeos ────────────────────────────────────────────────────────
+  {
+    id: 'alces',
+    name: 'Alces',
+    species: 'Alces alces / Cervidae',
+    type: 'Mamifero',
+    emoji: '🦌',
+    description: 'Cervideo de grande porte presente no plantel do zoo.',
+    habitat: 'Recinto dos Cervídeos',
+    feedingTime: ALIMENTACAO_LOCAL,
+    status: 'Comum',
+    image: '/placeholder.svg',
+    weight: NAO_INFORMADO,
+    lifespan: NAO_INFORMADO,
+    diet: NAO_INFORMADO,
+    facts: [
+      'Um dos maiores cervídeos do mundo',
+      'Machos possuem grandes galhadas',
+      'Herbivoro de grande porte',
+    ],
+    conservation: 'Populacoes dependem da conservacao de florestas e areas abertas.',
+    location: 'Recinto dos Cervídeos',
+    mapPosition: { x: 72.0, y: 35.0 }, // posição provisória — calibrar
+  },
+
+  // ── Zebras ───────────────────────────────────────────────────────────────────
+  {
+    id: 'zebras',
+    name: 'Zebras',
+    species: 'Equus quagga',
+    type: 'Mamifero',
+    emoji: '🦓',
+    description: 'Equideo africano com listras caracteristicas, presente no plantel oficial.',
+    habitat: 'Recinto dos Herbivoros',
+    feedingTime: ALIMENTACAO_LOCAL,
+    status: 'Comum',
+    image: '/placeholder.svg',
+    weight: NAO_INFORMADO,
+    lifespan: NAO_INFORMADO,
+    diet: NAO_INFORMADO,
+    facts: [
+      'Cada zebra tem padrao de listras unico',
+      'Animal social, vive em manadas',
+      'Destaque oficial de herbivoros',
+    ],
+    conservation: 'Algumas especies de zebra enfrentam pressao por perda de habitat.',
+    location: 'Recinto dos Herbivoros',
+    mapPosition: { x: 20.0, y: 50.0 }, // posição provisória — calibrar
+  },
+
+  // ── Avestruzes ───────────────────────────────────────────────────────────────
+  {
+    id: 'avestruzes',
+    name: 'Avestruzes',
+    species: 'Struthio camelus',
+    type: 'Ave',
+    emoji: '🦤',
+    description: 'Maior ave do mundo, presente no plantel do Parque Zoologico.',
+    habitat: 'Recinto das Aves Terrestres',
+    feedingTime: ALIMENTACAO_LOCAL,
+    status: 'Comum',
+    image: '/placeholder.svg',
+    weight: NAO_INFORMADO,
+    lifespan: NAO_INFORMADO,
+    diet: NAO_INFORMADO,
+    facts: [
+      'Maior ave do mundo — nao voa',
+      'Corre a ate 70 km/h',
+      'Bota os maiores ovos de qualquer ave viva',
+    ],
+    conservation: 'Especie nao ameacada, amplamente criada em cativeiro.',
+    location: 'Recinto das Aves Terrestres',
+    mapPosition: { x: 30.0, y: 55.0 }, // posição provisória — calibrar
+  },
+
+  // ── Área de Alimentação (serviço) ────────────────────────────────────────────
   {
     id: 'alimentacao',
-    name: 'Area de Alimentacao',
+    name: 'Restaurante',
     species: '—',
     type: 'Servico',
     emoji: '🍽️',
-    description: 'Area de alimentacao e lanchonete do Parque Zoologico.',
+    description: 'Restaurante e lanchonete do Parque Zoologico de Sapucaia do Sul.',
     habitat: '—',
     feedingTime: '—',
     status: 'Comum',
@@ -188,12 +303,9 @@ export const animals: Animal[] = [
     weight: '—',
     lifespan: '—',
     diet: '—',
-    facts: [
-      'Ponto de alimentacao para visitantes',
-      'Localizado na area central do zoo',
-    ],
+    facts: [],
     conservation: '—',
-    location: 'Area de Alimentacao',
+    location: 'Restaurante',
     mapPosition: { x: 52.2, y: 56.1 },
   },
 
@@ -222,7 +334,7 @@ export const animals: Animal[] = [
     mapPosition: { x: 25.1, y: 41.4 },
   },
 
-  // ── Posto de Informações ─────────────────────────────────────────────────────
+  // ── Posto de Informações (serviço) ───────────────────────────────────────────
   {
     id: 'informacoes',
     name: 'Posto de Informacoes',
@@ -237,16 +349,13 @@ export const animals: Animal[] = [
     weight: '—',
     lifespan: '—',
     diet: '—',
-    facts: [
-      'Atendimento ao visitante',
-      'Mapas e informacoes sobre o zoo',
-    ],
+    facts: [],
     conservation: '—',
     location: 'Posto de Informacoes',
     mapPosition: { x: 43.5, y: 42.6 },
   },
 
-  // ── Entrada Principal ────────────────────────────────────────────────────────
+  // ── Entrada Principal (serviço) ──────────────────────────────────────────────
   {
     id: 'entrada-principal',
     name: 'Entrada Principal',
@@ -261,10 +370,7 @@ export const animals: Animal[] = [
     weight: '—',
     lifespan: '—',
     diet: '—',
-    facts: [
-      'Ponto de entrada e saida do zoo',
-      'Bilheteria e controle de acesso',
-    ],
+    facts: [],
     conservation: '—',
     location: 'Entrada Principal',
     mapPosition: { x: 90.4, y: 69.7 },
