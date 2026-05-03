@@ -271,7 +271,7 @@ export const animals: Animal[] = [
     conservation: 'Algumas especies de zebra enfrentam pressao por perda de habitat.',
     location: 'Recinto dos Herbivoros',
     mapPosition: { x: 10.9, y: 41.8 },
-    gpsPosition: { lat: -29.7958000, lng: -51.1762000 },
+    gpsPosition: { lat: -29.7955585, lng: -51.1773532 },
   },
 
   // ── Avestruzes ───────────────────────────────────────────────────────────────
@@ -297,7 +297,7 @@ export const animals: Animal[] = [
     conservation: 'Especie nao ameacada, amplamente criada em cativeiro.',
     location: 'Recinto das Aves Terrestres',
     mapPosition: { x: 7.9, y: 40.4 },
-    gpsPosition: { lat: -29.7955000, lng: -51.1765000 },
+    gpsPosition: { lat: -29.7950371, lng: -51.1772942 },
   },
 
   // ── Área de Alimentação (serviço) ────────────────────────────────────────────
@@ -389,6 +389,6 @@ export const animals: Animal[] = [
     conservation: '—',
     location: 'Entrada Principal',
     mapPosition: { x: 90.4, y: 69.7 },
-    gpsPosition: { lat: -29.8015603, lng: -51.1659926 },
+    gpsPosition: { lat: -29.801428, lng: -51.1665711 },
   },
 ];
