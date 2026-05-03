@@ -27,6 +27,7 @@ export const animals: Animal[] = [
     conservation: 'A especie tem historico de pressao por caca ilegal.',
     location: 'Recinto dos Rinocerontes',
     mapPosition: { x: 35.6, y: 42 },
+    gpsPosition: { lat: -29.7958447, lng: -51.1732974 },
   },
 
   // ── Hipopótamo ───────────────────────────────────────────────────────────────
@@ -52,6 +53,7 @@ export const animals: Animal[] = [
     conservation: 'A especie e impactada por perda de habitat e pressao humana.',
     location: 'Recinto do Hipopotamo',
     mapPosition: { x: 39.4, y: 38.2 },
+    gpsPosition: { lat: -29.7948836, lng: -51.1726886 },
   },
 
   // ── Répteis (recinto coletivo) ───────────────────────────────────────────────
@@ -73,6 +75,7 @@ export const animals: Animal[] = [
     conservation: '—',
     location: 'Casa dos Repteis',
     mapPosition: { x: 44.9, y: 36.2 },
+    gpsPosition: { lat: -29.7942401, lng: -51.1714897 },
   },
 
   // ── Felinos e Ursos (recinto coletivo) ──────────────────────────────────────
@@ -94,6 +97,7 @@ export const animals: Animal[] = [
     conservation: '—',
     location: 'Recinto de Felinos e Ursos',
     mapPosition: { x: 38.5, y: 31.5 },
+    gpsPosition: { lat: -29.7939282, lng: -51.1722501 },
   },
 
   // ── Aves (recinto coletivo) ──────────────────────────────────────────────────
@@ -115,6 +119,7 @@ export const animals: Animal[] = [
     conservation: '—',
     location: 'Recinto das Aves',
     mapPosition: { x: 48.7, y: 39.4 },
+    gpsPosition: { lat: -29.7935284, lng: -51.1711735 },
   },
 
   // ── Elefantes ────────────────────────────────────────────────────────────────
@@ -140,6 +145,7 @@ export const animals: Animal[] = [
     conservation: 'Sofrem com perda de habitat e caca ilegal por marfim.',
     location: 'Recinto dos Elefantes',
     mapPosition: { x: 14.2, y: 38.4 },
+    gpsPosition: { lat: -29.7952270, lng: -51.1760642 },
   },
 
   // ── Primatas (recinto coletivo) ──────────────────────────────────────────────
@@ -161,6 +167,7 @@ export const animals: Animal[] = [
     conservation: '—',
     location: 'Recinto dos Primatas',
     mapPosition: { x: 42.7, y: 45.9 },
+    gpsPosition: { lat: -29.7961078, lng: -51.1722088 },
   },
 
   // ── Flamingos ────────────────────────────────────────────────────────────────
@@ -186,6 +193,7 @@ export const animals: Animal[] = [
     conservation: 'Depende da qualidade de lagoas e areas umidas.',
     location: 'Area do Lago',
     mapPosition: { x: 53.3, y: 34.4 },
+    gpsPosition: { lat: -29.7945, lng: -51.1700 },
   },
 
   // ── Capivaras ────────────────────────────────────────────────────────────────
@@ -211,6 +219,7 @@ export const animals: Animal[] = [
     conservation: 'Depende da integridade de margens de rios, lagos e banhados.',
     location: 'Area do Lago',
     mapPosition: { x: 61.1, y: 48.9 },
+    gpsPosition: { lat: -29.7966342, lng: -51.1696714 },
   },
 
   // ── Alces / Cervídeos ────────────────────────────────────────────────────────
@@ -236,6 +245,7 @@ export const animals: Animal[] = [
     conservation: 'Populacoes dependem da conservacao de florestas e areas abertas.',
     location: 'Recinto dos Cervídeos',
     mapPosition: { x: 74.6, y: 53.7 },
+    gpsPosition: { lat: -29.7985336, lng: -51.1682767 },
   },
 
   // ── Zebras ───────────────────────────────────────────────────────────────────
@@ -261,6 +271,7 @@ export const animals: Animal[] = [
     conservation: 'Algumas especies de zebra enfrentam pressao por perda de habitat.',
     location: 'Recinto dos Herbivoros',
     mapPosition: { x: 10.9, y: 41.8 },
+    gpsPosition: { lat: -29.7958000, lng: -51.1762000 },
   },
 
   // ── Avestruzes ───────────────────────────────────────────────────────────────
@@ -286,6 +297,7 @@ export const animals: Animal[] = [
     conservation: 'Especie nao ameacada, amplamente criada em cativeiro.',
     location: 'Recinto das Aves Terrestres',
     mapPosition: { x: 7.9, y: 40.4 },
+    gpsPosition: { lat: -29.7955000, lng: -51.1765000 },
   },
 
   // ── Área de Alimentação (serviço) ────────────────────────────────────────────
@@ -307,6 +319,7 @@ export const animals: Animal[] = [
     conservation: '—',
     location: 'Restaurante',
     mapPosition: { x: 52.2, y: 56.1 },
+    gpsPosition: { lat: -29.7985695, lng: -51.1715447 },
   },
 
   // ── Lhamas ───────────────────────────────────────────────────────────────────
@@ -332,6 +345,7 @@ export const animals: Animal[] = [
     conservation: 'Especie domesticada, sem risco de extincao.',
     location: 'Recinto das Lhamas',
     mapPosition: { x: 25.1, y: 41.4 },
+    gpsPosition: { lat: -29.7956309, lng: -51.1746749 },
   },
 
   // ── Posto de Informações (serviço) ───────────────────────────────────────────
@@ -353,6 +367,7 @@ export const animals: Animal[] = [
     conservation: '—',
     location: 'Posto de Informacoes',
     mapPosition: { x: 43.5, y: 42.6 },
+    gpsPosition: { lat: -29.7958578, lng: -51.1717834 },
   },
 
   // ── Entrada Principal (serviço) ──────────────────────────────────────────────
@@ -374,5 +389,6 @@ export const animals: Animal[] = [
     conservation: '—',
     location: 'Entrada Principal',
     mapPosition: { x: 90.4, y: 69.7 },
+    gpsPosition: { lat: -29.8015603, lng: -51.1659926 },
   },
 ];

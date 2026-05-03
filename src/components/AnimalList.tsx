@@ -89,16 +89,16 @@ const AnimalList: React.FC<AnimalListProps> = ({ onAnimalSelect }) => {
 
   if (isLoading) {
     return (
-      <Card className="shadow-lg border-0">
-        <CardContent className="text-center py-12 text-gray-600">Carregando animais...</CardContent>
+      <Card className="shadow-md border-0">
+        <CardContent className="text-center py-10 text-gray-600">Carregando animais...</CardContent>
       </Card>
     );
   }
 
   if (error) {
     return (
-      <Card className="shadow-lg border-0">
-        <CardContent className="text-center py-12 space-y-3">
+      <Card className="shadow-md border-0">
+        <CardContent className="text-center py-10 space-y-3">
           <p className="text-red-600">{error}</p>
           <Button onClick={() => window.location.reload()} variant="outline">Tentar novamente</Button>
         </CardContent>
@@ -107,62 +107,58 @@ const AnimalList: React.FC<AnimalListProps> = ({ onAnimalSelect }) => {
   }
 
   return (
-    <div className="space-y-6">
-      <Card className="shadow-lg border-0">
-        <CardHeader className="bg-emerald-600 text-white rounded-t-lg">
-          <CardTitle className="flex items-center space-x-2">
-            <Search className="w-5 h-5" />
+    <div className="space-y-4">
+      <Card className="shadow-md border-0">
+        <CardHeader className="bg-emerald-600 text-white rounded-t-lg py-3 px-4">
+          <CardTitle className="flex items-center space-x-2 text-base">
+            <Search className="w-4 h-4" />
             <span>Explore nossos Animais</span>
           </CardTitle>
         </CardHeader>
-        <CardContent className="p-4 space-y-4">
-          <div className="flex flex-col sm:flex-row gap-4">
-            <div className="flex-1">
-              <Input
-                placeholder="Buscar por nome ou espécie..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="border-emerald-200 focus:border-emerald-500"
-              />
-            </div>
-            <div className="flex flex-wrap gap-2">
+        <CardContent className="p-3 space-y-3">
+          <Input
+            placeholder="Buscar por nome ou espécie..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="border-emerald-200 focus:border-emerald-500"
+          />
+          <div className="flex flex-wrap gap-1.5">
+            <Button
+              variant={selectedType === '' ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => setSelectedType('')}
+              className={`text-xs h-7 px-2.5 ${selectedType === '' ? 'bg-emerald-600 hover:bg-emerald-700' : ''}`}
+            >
+              Todos
+            </Button>
+            {animalTypes.map((type) => (
               <Button
-                variant={selectedType === '' ? 'default' : 'outline'}
+                key={type}
+                variant={selectedType === type ? 'default' : 'outline'}
                 size="sm"
-                onClick={() => setSelectedType('')}
-                className={selectedType === '' ? 'bg-emerald-600 hover:bg-emerald-700' : ''}
+                onClick={() => setSelectedType(type)}
+                className={`text-xs h-7 px-2.5 ${selectedType === type ? 'bg-emerald-600 hover:bg-emerald-700' : ''}`}
               >
-                Todos
+                {type}
               </Button>
-              {animalTypes.map((type) => (
-                <Button
-                  key={type}
-                  variant={selectedType === type ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => setSelectedType(type)}
-                  className={selectedType === type ? 'bg-emerald-600 hover:bg-emerald-700' : ''}
-                >
-                  {type}
-                </Button>
-              ))}
-            </div>
+            ))}
           </div>
         </CardContent>
       </Card>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
         {filteredAnimals.map((animal) => (
           <Card
             key={animal.id}
-            className="group hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:scale-105 border-0 shadow-lg"
+            className="group active:scale-[0.98] transition-all duration-150 cursor-pointer border-0 shadow-md hover:shadow-lg"
             onClick={() => onAnimalSelect(animal.id)}
           >
-            <CardHeader className="text-center pb-2">
+            <CardHeader className="text-center pb-1 pt-3 px-3">
               <div className="flex justify-end">
                 <Button
                   size="icon"
                   variant="ghost"
-                  className="h-8 w-8"
+                  className="h-7 w-7"
                   onClick={(e) => {
                     e.stopPropagation();
                     toggleFavorite(animal.id, animal.name);
@@ -171,13 +167,13 @@ const AnimalList: React.FC<AnimalListProps> = ({ onAnimalSelect }) => {
                   <Heart className={`w-4 h-4 ${favorites.includes(animal.id) ? 'fill-red-500 text-red-500' : 'text-gray-400'}`} />
                 </Button>
               </div>
-              <div className="text-6xl mb-2 group-hover:scale-110 transition-transform duration-300">
+              <div className="text-5xl mb-1">
                 {animal.emoji}
               </div>
-              <CardTitle className="text-lg text-emerald-800">{animal.name}</CardTitle>
-              <p className="text-sm text-gray-500 italic">{animal.species}</p>
+              <CardTitle className="text-base text-emerald-800">{animal.name}</CardTitle>
+              <p className="text-xs text-gray-500 italic">{animal.species}</p>
             </CardHeader>
-            <CardContent className="space-y-3">
+            <CardContent className="space-y-2 px-3 pb-3">
               <div className="flex items-center justify-between">
                 <Badge variant="outline" className="text-xs">
                   {animal.type}
@@ -187,22 +183,22 @@ const AnimalList: React.FC<AnimalListProps> = ({ onAnimalSelect }) => {
                 </Badge>
               </div>
 
-              <p className="text-sm text-gray-600 line-clamp-3">
+              <p className="text-xs text-gray-600 line-clamp-2">
                 {animal.description}
               </p>
 
-              <div className="space-y-2 text-xs text-gray-500">
+              <div className="space-y-1 text-xs text-gray-500">
                 <div className="flex items-center space-x-1">
-                  <MapPin className="w-3 h-3" />
-                  <span>{animal.habitat}</span>
+                  <MapPin className="w-3 h-3 shrink-0" />
+                  <span className="truncate">{animal.habitat}</span>
                 </div>
                 <div className="flex items-center space-x-1">
-                  <Clock className="w-3 h-3" />
+                  <Clock className="w-3 h-3 shrink-0" />
                   <span>Alimentação: {animal.feedingTime}</span>
                 </div>
               </div>
 
-              <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white" size="sm">
+              <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white h-8 text-xs" size="sm">
                 Ver Detalhes
               </Button>
             </CardContent>
@@ -211,13 +207,13 @@ const AnimalList: React.FC<AnimalListProps> = ({ onAnimalSelect }) => {
       </div>
 
       {filteredAnimals.length === 0 && (
-        <Card className="shadow-lg border-0">
-          <CardContent className="text-center py-12">
-            <div className="text-6xl mb-4">🔍</div>
-            <h3 className="text-lg font-medium text-gray-600 mb-2">
+        <Card className="shadow-md border-0">
+          <CardContent className="text-center py-10">
+            <div className="text-5xl mb-3">🔍</div>
+            <h3 className="text-base font-medium text-gray-600 mb-1">
               Nenhum animal encontrado
             </h3>
-            <p className="text-gray-500">
+            <p className="text-sm text-gray-500">
               Tente ajustar os filtros ou buscar por outro termo.
             </p>
           </CardContent>

@@ -43,39 +43,39 @@ const ZooInfo = () => {
   ];
 
   return (
-    <div className="space-y-6">
-      <Card className="shadow-lg border-0">
-        <CardHeader className="bg-emerald-700 text-white rounded-t-lg">
-          <CardTitle className="flex items-center space-x-2">
-            <MapPin className="w-5 h-5" />
-            <span>Parque Zoológico de Sapucaia do Sul (SEMA-RS)</span>
+    <div className="space-y-4">
+      <Card className="shadow-md border-0">
+        <CardHeader className="bg-emerald-700 text-white rounded-t-lg py-3 px-4">
+          <CardTitle className="flex items-center gap-2 text-base">
+            <MapPin className="w-4 h-4 shrink-0" />
+            <span>Parque Zoológico de Sapucaia do Sul</span>
           </CardTitle>
         </CardHeader>
-        <CardContent className="p-6 space-y-4">
-          <p className="text-gray-700">
+        <CardContent className="p-4 space-y-4">
+          <p className="text-sm text-gray-700">
             O parque é apresentado pela SEMA-RS como centro de educação ambiental, conservação da fauna e acolhimento
             de animais silvestres resgatados. O plantel informado inclui mais de 1.000 animais de cerca de 130 espécies.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <h3 className="font-semibold text-emerald-800 flex items-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="space-y-1.5">
+              <h3 className="font-semibold text-emerald-800 flex items-center text-sm">
                 <MapPin className="w-4 h-4 mr-2" />
                 Localização
               </h3>
-              <div className="text-sm space-y-1 text-gray-700">
+              <div className="text-sm space-y-0.5 text-gray-700">
                 <p>BR-116, parada 41, Km 252</p>
                 <p>Sapucaia do Sul - RS</p>
-                <p>Referência oficial: portal da SEMA-RS</p>
+                <p className="text-xs text-gray-500">Referência oficial: portal da SEMA-RS</p>
               </div>
             </div>
 
-            <div className="space-y-2">
-              <h3 className="font-semibold text-emerald-800 flex items-center">
+            <div className="space-y-1.5">
+              <h3 className="font-semibold text-emerald-800 flex items-center text-sm">
                 <Info className="w-4 h-4 mr-2" />
                 Regras de Visita
               </h3>
-              <ul className="text-sm text-gray-700 space-y-1 list-disc list-inside">
+              <ul className="text-sm text-gray-700 space-y-0.5 list-disc list-inside">
                 <li>Não alimentar os animais</li>
                 <li>Não jogar lixo no recinto</li>
                 <li>Crianças devem estar acompanhadas</li>
@@ -86,86 +86,86 @@ const ZooInfo = () => {
         </CardContent>
       </Card>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="shadow-lg border-0">
-          <CardHeader className="bg-blue-700 text-white rounded-t-lg">
-            <CardTitle className="flex items-center space-x-2">
-              <Clock className="w-5 h-5" />
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <Card className="shadow-md border-0">
+          <CardHeader className="bg-blue-700 text-white rounded-t-lg py-3 px-4">
+            <CardTitle className="flex items-center gap-2 text-base">
+              <Clock className="w-4 h-4" />
               <span>Funcionamento</span>
             </CardTitle>
           </CardHeader>
-          <CardContent className="p-4 space-y-3">
+          <CardContent className="p-3 space-y-2">
             {schedules.map((schedule) => (
-              <div key={schedule.day} className="flex justify-between items-center py-2 border-b border-gray-100">
-                <span className="font-medium text-gray-700">{schedule.day}</span>
-                <Badge variant="outline" className="bg-blue-50 text-blue-700">
+              <div key={schedule.day} className="flex justify-between items-center py-1.5 border-b border-gray-100">
+                <span className="text-sm font-medium text-gray-700">{schedule.day}</span>
+                <Badge variant="outline" className="bg-blue-50 text-blue-700 text-xs">
                   {schedule.hours}
                 </Badge>
               </div>
             ))}
-            <div className="p-3 bg-amber-50 rounded-lg text-xs text-amber-800">
+            <div className="p-2.5 bg-amber-50 rounded-lg text-xs text-amber-800">
               Horários e operação podem mudar. Confira sempre a página oficial antes da visita.
             </div>
           </CardContent>
         </Card>
 
-        <Card className="shadow-lg border-0">
-          <CardHeader className="bg-green-700 text-white rounded-t-lg">
-            <CardTitle className="flex items-center space-x-2">
-              <DollarSign className="w-5 h-5" />
+        <Card className="shadow-md border-0">
+          <CardHeader className="bg-green-700 text-white rounded-t-lg py-3 px-4">
+            <CardTitle className="flex items-center gap-2 text-base">
+              <DollarSign className="w-4 h-4" />
               <span>Ingressos para Pedestres</span>
             </CardTitle>
           </CardHeader>
-          <CardContent className="p-4 space-y-2">
+          <CardContent className="p-3 space-y-1">
             {pedestrianPrices.map((price) => (
-              <div key={price.category} className="flex justify-between items-center py-2 border-b border-gray-100 last:border-b-0">
+              <div key={price.category} className="flex justify-between items-center py-1.5 border-b border-gray-100 last:border-b-0">
                 <div>
-                  <p className="font-medium text-gray-700">{price.category}</p>
+                  <p className="text-sm font-medium text-gray-700">{price.category}</p>
                   <p className="text-xs text-gray-500">{price.description}</p>
                 </div>
-                <Badge variant="outline" className="bg-green-50 text-green-700 font-semibold">
+                <Badge variant="outline" className="bg-green-50 text-green-700 font-semibold text-xs shrink-0 ml-2">
                   {price.price}
                 </Badge>
               </div>
             ))}
-            <p className="text-xs text-gray-600 pt-2">
-              Compra na bilheteria do pórtico de entrada. Formas de pagamento: dinheiro ou PIX.
+            <p className="text-xs text-gray-600 pt-1.5">
+              Compra na bilheteria. Formas de pagamento: dinheiro ou PIX.
             </p>
           </CardContent>
         </Card>
       </div>
 
-      <Card className="shadow-lg border-0">
-        <CardHeader className="bg-slate-700 text-white rounded-t-lg">
-          <CardTitle className="flex items-center space-x-2">
-            <CircleParking className="w-5 h-5" />
-            <span>Valores para Veiculos e Estrutura</span>
+      <Card className="shadow-md border-0">
+        <CardHeader className="bg-slate-700 text-white rounded-t-lg py-3 px-4">
+          <CardTitle className="flex items-center gap-2 text-base">
+            <CircleParking className="w-4 h-4" />
+            <span>Valores para Veículos e Estrutura</span>
           </CardTitle>
         </CardHeader>
-        <CardContent className="p-6 space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+        <CardContent className="p-4 space-y-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
             {vehiclePrices.map((price) => (
               <div key={price.category} className="flex justify-between items-center bg-slate-50 rounded-md px-3 py-2">
                 <span className="text-sm text-gray-700">{price.category}</span>
-                <Badge variant="outline" className="bg-white text-slate-700">{price.price}</Badge>
+                <Badge variant="outline" className="bg-white text-slate-700 shrink-0 ml-2">{price.price}</Badge>
               </div>
             ))}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-3 gap-2">
             {facilities.map((facility) => {
               const Icon = facility.icon;
               return (
-                <div key={facility.name} className="text-center p-4 bg-gray-50 rounded-lg">
-                  <Icon className="w-7 h-7 mx-auto mb-2 text-slate-700" />
-                  <h4 className="font-medium text-gray-800 mb-1">{facility.name}</h4>
-                  <p className="text-xs text-gray-600">{facility.description}</p>
+                <div key={facility.name} className="text-center p-3 bg-gray-50 rounded-lg">
+                  <Icon className="w-6 h-6 mx-auto mb-1.5 text-slate-700" />
+                  <h4 className="font-medium text-xs text-gray-800 mb-0.5">{facility.name}</h4>
+                  <p className="text-xs text-gray-600 leading-tight">{facility.description}</p>
                 </div>
               );
             })}
           </div>
 
-          <div className="p-4 bg-blue-50 rounded-lg text-sm text-blue-900 flex gap-2">
+          <div className="p-3 bg-blue-50 rounded-lg text-sm text-blue-900 flex gap-2">
             <Info className="w-4 h-4 mt-0.5 shrink-0 text-blue-700" />
             <p>
               Para o acesso de veículos é cobrada uma <strong>tarifa única independente do número de passageiros</strong>,
@@ -173,7 +173,7 @@ const ZooInfo = () => {
             </p>
           </div>
 
-          <div className="p-4 bg-amber-50 rounded-lg text-sm text-amber-900 flex gap-2">
+          <div className="p-3 bg-amber-50 rounded-lg text-sm text-amber-900 flex gap-2">
             <AlertTriangle className="w-4 h-4 mt-0.5 shrink-0" />
             <p>
               Para taxa escolar, a solicitação deve ser enviada por e-mail para <strong>zoo@sema.rs.gov.br</strong>.
@@ -183,32 +183,32 @@ const ZooInfo = () => {
         </CardContent>
       </Card>
 
-      <Card className="shadow-lg border-0">
-        <CardHeader className="bg-emerald-700 text-white rounded-t-lg">
-          <CardTitle className="flex items-center space-x-2">
-            <Mail className="w-5 h-5" />
+      <Card className="shadow-md border-0">
+        <CardHeader className="bg-emerald-700 text-white rounded-t-lg py-3 px-4">
+          <CardTitle className="flex items-center gap-2 text-base">
+            <Mail className="w-4 h-4" />
             <span>Contato e Fontes Oficiais</span>
           </CardTitle>
         </CardHeader>
-        <CardContent className="p-6 space-y-4">
-          <div className="space-y-2 text-sm text-gray-700">
-            <p className="flex items-center gap-2"><Mail className="w-4 h-4 text-emerald-700" />zoo@sema.rs.gov.br</p>
-            <p className="flex items-center gap-2"><Globe className="w-4 h-4 text-emerald-700" />sema.rs.gov.br/zoologico</p>
-            <p className="text-xs text-gray-600">Dados sincronizados com as páginas oficiais da SEMA-RS em 24/04/2026.</p>
+        <CardContent className="p-4 space-y-3">
+          <div className="space-y-1.5 text-sm text-gray-700">
+            <p className="flex items-center gap-2"><Mail className="w-4 h-4 text-emerald-700 shrink-0" />zoo@sema.rs.gov.br</p>
+            <p className="flex items-center gap-2"><Globe className="w-4 h-4 text-emerald-700 shrink-0" />sema.rs.gov.br/zoologico</p>
+            <p className="text-xs text-gray-500">Dados sincronizados com as páginas oficiais da SEMA-RS em 24/04/2026.</p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-3">
-            <Button asChild className="bg-emerald-700 hover:bg-emerald-800 text-white">
+          <div className="flex flex-col sm:flex-row gap-2">
+            <Button asChild className="bg-emerald-700 hover:bg-emerald-800 text-white h-9 text-sm">
               <a href="https://www.sema.rs.gov.br/zoologico" target="_blank" rel="noreferrer">
                 <ExternalLink className="w-4 h-4 mr-2" />
-                Abrir pagina do Zoologico
+                Página do Zoológico
               </a>
             </Button>
 
-            <Button asChild variant="outline">
+            <Button asChild variant="outline" className="h-9 text-sm">
               <a href="https://www.sema.rs.gov.br/mapa-do-zoo" target="_blank" rel="noreferrer">
                 <ExternalLink className="w-4 h-4 mr-2" />
-                Abrir mapa oficial
+                Mapa oficial
               </a>
             </Button>
           </div>

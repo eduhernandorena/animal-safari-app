@@ -27,17 +27,29 @@ O app já está em um **MVP funcional de front-end** com foco em experiência vi
 - Marcadores de animais com tooltip simples.
 - Indicador de localização do usuário **simulado**.
 - Botão de geolocalização existente, mas sem integração real com coordenadas do parque.
+- **Layout fullscreen no mobile**: quando a aba Mapa está ativa em telas pequenas, o mapa ocupa toda a tela (estilo Google Maps) — o header é ocultado e a barra de navegação inferior fica flutuante com fundo semitransparente (`bg-white/90` + `backdrop-blur`). Em telas `sm` e maiores o layout padrão é mantido.
 
 ### 4) Dados de animais e conteúdo
 - Dados embutidos no código (arrays/objetos estáticos).
 - Status de conservação, habitat, horário de alimentação etc.
 - Conteúdo descritivo consistente para demo e validação de UX.
 
+## Modelo de dados — Animal
+
+O tipo `Animal` (em `src/types/animal.ts`) possui dois sistemas de coordenadas distintos:
+
+| Campo | Tipo | Descrição |
+|---|---|---|
+| `mapPosition` | `{ x, y }` (%) | Posição percentual no mapa-imagem — definida manualmente |
+| `gpsPosition?` | `GpsCoords` (`{ lat, lng }`) | Coordenadas GPS reais do recinto, medidas in loco (opcional) |
+
+`GpsCoords` é uma interface separada exportada de `src/types/animal.ts`. O campo `gpsPosition` é opcional; animais sem medição GPS continuam funcionando normalmente com `mapPosition`.
+
 ## Limitações atuais (gaps para produção)
 
 1. **Sem backend/API**: tudo é estático no front-end.
 2. **Sem persistência**: favoritos, rota visitada e preferências não são salvos.
-3. **Mapa não georreferenciado**: coordenadas são percentuais fictícias.
+3. **Mapa georreferenciado parcialmente**: `mapPosition` usa percentuais; `gpsPosition` (quando preenchido) armazena coordenadas reais, mas a conversão GPS→imagem depende dos pontos de controle em `zoo-control-points.ts`.
 4. **Geolocalização parcial**: usa `navigator.geolocation`, mas apenas para log/simulação.
 5. **Sem autenticação e papéis**: inexistente para visitantes/admin.
 6. **Sem testes automatizados**: não há suíte de testes no projeto.

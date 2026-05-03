@@ -125,19 +125,19 @@ const AnimalDetails: React.FC<AnimalDetailsProps> = ({ animalId, onBack }) => {
 
   if (isLoading) {
     return (
-      <Card className="shadow-lg border-0">
-        <CardContent className="text-center py-12 text-gray-600">Carregando...</CardContent>
+      <Card className="shadow-md border-0">
+        <CardContent className="text-center py-10 text-gray-600">Carregando...</CardContent>
       </Card>
     );
   }
 
   if (error || !animal) {
     return (
-      <Card className="shadow-lg border-0">
-        <CardContent className="text-center py-12 space-y-3">
-          <div className="text-6xl mb-4">❓</div>
-          <h3 className="text-lg font-medium text-gray-600">{error ?? 'Não encontrado'}</h3>
-          <Button onClick={onBack} className="mt-4">Voltar</Button>
+      <Card className="shadow-md border-0">
+        <CardContent className="text-center py-10 space-y-3">
+          <div className="text-5xl mb-3">❓</div>
+          <h3 className="text-base font-medium text-gray-600">{error ?? 'Não encontrado'}</h3>
+          <Button onClick={onBack} className="mt-3">Voltar</Button>
         </CardContent>
       </Card>
     );
@@ -147,43 +147,43 @@ const AnimalDetails: React.FC<AnimalDetailsProps> = ({ animalId, onBack }) => {
   if (animal.type === 'Servico') {
     const info = SERVICO_INFO[animal.id];
     return (
-      <div className="space-y-6">
-        <div className="flex items-center space-x-4">
-          <Button variant="outline" onClick={onBack} className="flex items-center space-x-2">
+      <div className="space-y-4">
+        <div className="flex items-center gap-3">
+          <Button variant="outline" size="sm" onClick={onBack} className="flex items-center gap-1.5 shrink-0">
             <ArrowLeft className="w-4 h-4" />
             <span>Voltar</span>
           </Button>
-          <h1 className="text-2xl font-bold text-emerald-800">Infraestrutura</h1>
+          <h1 className="text-lg font-bold text-emerald-800 truncate">Infraestrutura</h1>
         </div>
 
-        <Card className="shadow-lg border-0">
-          <CardHeader className="bg-emerald-600 text-white rounded-t-lg">
-            <div className="flex items-center space-x-4">
-              <div className="text-5xl">{animal.emoji}</div>
-              <CardTitle className="text-2xl">{animal.name}</CardTitle>
+        <Card className="shadow-md border-0">
+          <CardHeader className="bg-emerald-600 text-white rounded-t-lg py-4 px-4">
+            <div className="flex items-center gap-3">
+              <div className="text-4xl shrink-0">{animal.emoji}</div>
+              <CardTitle className="text-xl">{animal.name}</CardTitle>
             </div>
           </CardHeader>
-          <CardContent className="p-6 space-y-6">
-            <p className="text-gray-700 leading-relaxed">{animal.description}</p>
+          <CardContent className="p-4 space-y-4">
+            <p className="text-sm text-gray-700 leading-relaxed">{animal.description}</p>
 
             {info && (
-              <div className="space-y-3">
-                <h3 className="font-semibold text-emerald-800 flex items-center">
+              <div className="space-y-2">
+                <h3 className="font-semibold text-emerald-800 flex items-center text-sm">
                   <Info className="w-4 h-4 mr-2" />
                   Informações
                 </h3>
                 <div className="bg-gray-50 rounded-lg divide-y divide-gray-100">
                   {info.itens.map((item) => (
-                    <div key={item.label} className="flex justify-between px-4 py-3 text-sm">
-                      <span className="text-gray-500">{item.label}</span>
-                      <span className="font-medium text-gray-800 text-right max-w-[60%]">{item.valor}</span>
+                    <div key={item.label} className="flex flex-col sm:flex-row sm:justify-between px-3 py-2.5 gap-0.5 text-sm">
+                      <span className="text-gray-500 text-xs">{item.label}</span>
+                      <span className="font-medium text-gray-800 sm:text-right sm:max-w-[60%]">{item.valor}</span>
                     </div>
                   ))}
                 </div>
               </div>
             )}
 
-            <div className="flex items-center gap-2 text-sm text-gray-500 bg-emerald-50 rounded-lg px-4 py-3">
+            <div className="flex items-center gap-2 text-sm text-gray-500 bg-emerald-50 rounded-lg px-3 py-2.5">
               <MapPin className="w-4 h-4 text-emerald-600 shrink-0" />
               <span>{animal.location}</span>
             </div>
@@ -197,45 +197,45 @@ const AnimalDetails: React.FC<AnimalDetailsProps> = ({ animalId, onBack }) => {
   if (animal.type === 'Recinto') {
     const animaisDoRecinto = RECINTO_ANIMAIS[animal.id] ?? [];
     return (
-      <div className="space-y-6">
-        <div className="flex items-center space-x-4">
-          <Button variant="outline" onClick={onBack} className="flex items-center space-x-2">
+      <div className="space-y-4">
+        <div className="flex items-center gap-3">
+          <Button variant="outline" size="sm" onClick={onBack} className="flex items-center gap-1.5 shrink-0">
             <ArrowLeft className="w-4 h-4" />
             <span>Voltar</span>
           </Button>
-          <h1 className="text-2xl font-bold text-emerald-800">Recinto</h1>
+          <h1 className="text-lg font-bold text-emerald-800 truncate">Recinto</h1>
         </div>
 
-        <Card className="shadow-lg border-0">
-          <CardHeader className="bg-emerald-600 text-white rounded-t-lg">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-4">
-                <div className="text-5xl">{animal.emoji}</div>
-                <div>
-                  <CardTitle className="text-2xl">{animal.name}</CardTitle>
-                  <p className="text-emerald-100 text-sm mt-1">{animal.location}</p>
+        <Card className="shadow-md border-0">
+          <CardHeader className="bg-emerald-600 text-white rounded-t-lg py-4 px-4">
+            <div className="flex items-start justify-between gap-2">
+              <div className="flex items-center gap-3 min-w-0">
+                <div className="text-4xl shrink-0">{animal.emoji}</div>
+                <div className="min-w-0">
+                  <CardTitle className="text-xl leading-tight">{animal.name}</CardTitle>
+                  <p className="text-emerald-100 text-xs mt-0.5 truncate">{animal.location}</p>
                 </div>
               </div>
-              <Badge className={getStatusColor(animal.status)}>{animal.status}</Badge>
+              <Badge className={`${getStatusColor(animal.status)} shrink-0 mt-1`}>{animal.status}</Badge>
             </div>
           </CardHeader>
-          <CardContent className="p-6 space-y-6">
+          <CardContent className="p-4 space-y-4">
             <div className="flex items-center gap-2 text-sm text-gray-500">
-              <Clock className="w-4 h-4 text-emerald-600" />
+              <Clock className="w-4 h-4 text-emerald-600 shrink-0" />
               <span>Alimentação: {animal.feedingTime}</span>
             </div>
 
             {animaisDoRecinto.length > 0 && (
-              <div className="space-y-3">
-                <h3 className="font-semibold text-emerald-800 flex items-center">
+              <div className="space-y-2">
+                <h3 className="font-semibold text-emerald-800 flex items-center text-sm">
                   <Heart className="w-4 h-4 mr-2" />
                   Animais neste recinto
                 </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {animaisDoRecinto.map((a) => (
-                    <div key={a.nome} className="flex items-start gap-3 bg-gray-50 rounded-lg px-4 py-3">
-                      <span className="text-2xl shrink-0">{a.emoji}</span>
-                      <div>
+                    <div key={a.nome} className="flex items-start gap-2.5 bg-gray-50 rounded-lg px-3 py-2.5">
+                      <span className="text-xl shrink-0">{a.emoji}</span>
+                      <div className="min-w-0">
                         <p className="font-medium text-sm text-gray-900">{a.nome}</p>
                         <p className="text-xs text-gray-500 italic">{a.especie}</p>
                         <p className="text-xs text-gray-600 mt-0.5">{a.descricao}</p>
@@ -246,15 +246,15 @@ const AnimalDetails: React.FC<AnimalDetailsProps> = ({ animalId, onBack }) => {
               </div>
             )}
 
-            <div className="flex flex-col sm:flex-row gap-3 pt-2">
+            <div className="flex flex-col sm:flex-row gap-2 pt-1">
               <Button
-                className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white"
+                className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white h-9 text-sm"
                 onClick={() => toast({ title: 'Navegação no mapa', description: `Abra a aba Mapa para localizar ${animal.name}.` })}
               >
                 <MapPin className="w-4 h-4 mr-2" />
                 Ver no Mapa
               </Button>
-              <Button variant="outline" className="flex-1" onClick={() => { void handleShare(); }}>
+              <Button variant="outline" className="flex-1 h-9 text-sm" onClick={() => { void handleShare(); }}>
                 <Camera className="w-4 h-4 mr-2" />
                 Compartilhar
               </Button>
@@ -267,69 +267,69 @@ const AnimalDetails: React.FC<AnimalDetailsProps> = ({ animalId, onBack }) => {
 
   // ── Tela de ANIMAL INDIVIDUAL ────────────────────────────────────────────────
   return (
-    <div className="space-y-6">
-      <div className="flex items-center space-x-4">
-        <Button variant="outline" onClick={onBack} className="flex items-center space-x-2">
+    <div className="space-y-4">
+      <div className="flex items-center gap-3">
+        <Button variant="outline" size="sm" onClick={onBack} className="flex items-center gap-1.5 shrink-0">
           <ArrowLeft className="w-4 h-4" />
           <span>Voltar</span>
         </Button>
-        <h1 className="text-2xl font-bold text-emerald-800">Detalhes do Animal</h1>
+        <h1 className="text-lg font-bold text-emerald-800 truncate">Detalhes do Animal</h1>
       </div>
 
-      <Card className="shadow-lg border-0">
-        <CardHeader className="bg-emerald-600 text-white rounded-t-lg">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <div className="text-6xl">{animal.emoji}</div>
-              <div>
-                <CardTitle className="text-2xl">{animal.name}</CardTitle>
-                <p className="text-emerald-100 italic">{animal.species}</p>
+      <Card className="shadow-md border-0">
+        <CardHeader className="bg-emerald-600 text-white rounded-t-lg py-4 px-4">
+          <div className="flex items-start justify-between gap-2">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="text-5xl shrink-0">{animal.emoji}</div>
+              <div className="min-w-0">
+                <CardTitle className="text-xl leading-tight">{animal.name}</CardTitle>
+                <p className="text-emerald-100 italic text-sm truncate">{animal.species}</p>
               </div>
             </div>
-            <Badge className={getStatusColor(animal.status)}>{animal.status}</Badge>
+            <Badge className={`${getStatusColor(animal.status)} shrink-0 mt-1`}>{animal.status}</Badge>
           </div>
         </CardHeader>
-        <CardContent className="p-6 space-y-6">
-          <p className="text-gray-700 leading-relaxed">{animal.description}</p>
+        <CardContent className="p-4 space-y-4">
+          <p className="text-sm text-gray-700 leading-relaxed">{animal.description}</p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="space-y-3">
-              <h3 className="font-semibold text-emerald-800 flex items-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <h3 className="font-semibold text-emerald-800 flex items-center text-sm">
                 <Info className="w-4 h-4 mr-2" />
                 Informações Básicas
               </h3>
-              <div className="space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Tipo:</span>
-                  <span className="font-medium">{animal.type}</span>
+              <div className="space-y-1.5 text-sm bg-gray-50 rounded-lg px-3 py-2">
+                <div className="flex justify-between gap-2">
+                  <span className="text-gray-500 shrink-0">Tipo:</span>
+                  <span className="font-medium text-right">{animal.type}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Peso:</span>
-                  <span className="font-medium">{animal.weight}</span>
+                <div className="flex justify-between gap-2">
+                  <span className="text-gray-500 shrink-0">Peso:</span>
+                  <span className="font-medium text-right">{animal.weight}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Expectativa de vida:</span>
-                  <span className="font-medium">{animal.lifespan}</span>
+                <div className="flex justify-between gap-2">
+                  <span className="text-gray-500 shrink-0">Expectativa:</span>
+                  <span className="font-medium text-right">{animal.lifespan}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Dieta:</span>
-                  <span className="font-medium">{animal.diet}</span>
+                <div className="flex justify-between gap-2">
+                  <span className="text-gray-500 shrink-0">Dieta:</span>
+                  <span className="font-medium text-right">{animal.diet}</span>
                 </div>
               </div>
             </div>
 
-            <div className="space-y-3">
-              <h3 className="font-semibold text-emerald-800 flex items-center">
+            <div className="space-y-2">
+              <h3 className="font-semibold text-emerald-800 flex items-center text-sm">
                 <MapPin className="w-4 h-4 mr-2" />
                 Localização no Zoo
               </h3>
-              <div className="space-y-2 text-sm">
-                <div className="flex items-center space-x-2">
-                  <MapPin className="w-4 h-4 text-emerald-600" />
+              <div className="space-y-1.5 text-sm bg-gray-50 rounded-lg px-3 py-2">
+                <div className="flex items-start gap-2">
+                  <MapPin className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                   <span>{animal.location}</span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <Clock className="w-4 h-4 text-emerald-600" />
+                <div className="flex items-center gap-2">
+                  <Clock className="w-4 h-4 text-emerald-600 shrink-0" />
                   <span>Alimentação: {animal.feedingTime}</span>
                 </div>
               </div>
@@ -337,15 +337,15 @@ const AnimalDetails: React.FC<AnimalDetailsProps> = ({ animalId, onBack }) => {
           </div>
 
           {animal.facts.length > 0 && (
-            <div className="space-y-3">
-              <h3 className="font-semibold text-emerald-800 flex items-center">
+            <div className="space-y-2">
+              <h3 className="font-semibold text-emerald-800 flex items-center text-sm">
                 <Heart className="w-4 h-4 mr-2" />
                 Curiosidades
               </h3>
-              <ul className="space-y-2">
+              <ul className="space-y-1.5">
                 {animal.facts.map((fact, index) => (
-                  <li key={index} className="flex items-start space-x-2 text-sm">
-                    <span className="text-emerald-600 mt-1">•</span>
+                  <li key={index} className="flex items-start gap-2 text-sm">
+                    <span className="text-emerald-600 mt-0.5 shrink-0">•</span>
                     <span>{fact}</span>
                   </li>
                 ))}
@@ -354,26 +354,26 @@ const AnimalDetails: React.FC<AnimalDetailsProps> = ({ animalId, onBack }) => {
           )}
 
           {animal.conservation !== '—' && (
-            <div className="space-y-3">
-              <h3 className="font-semibold text-emerald-800 flex items-center">
+            <div className="space-y-2">
+              <h3 className="font-semibold text-emerald-800 flex items-center text-sm">
                 <AlertTriangle className="w-4 h-4 mr-2" />
                 Status de Conservação
               </h3>
-              <div className="bg-gray-50 p-4 rounded-lg">
+              <div className="bg-gray-50 p-3 rounded-lg">
                 <p className="text-sm text-gray-700">{animal.conservation}</p>
               </div>
             </div>
           )}
 
-          <div className="flex flex-col sm:flex-row gap-3 pt-4">
+          <div className="flex flex-col sm:flex-row gap-2 pt-2">
             <Button
-              className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white"
+              className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white h-9 text-sm"
               onClick={() => toast({ title: 'Navegação no mapa', description: `Abra a aba Mapa para localizar ${animal.name}.` })}
             >
               <MapPin className="w-4 h-4 mr-2" />
               Ver no Mapa
             </Button>
-            <Button variant="outline" className="flex-1" onClick={() => { void handleShare(); }}>
+            <Button variant="outline" className="flex-1 h-9 text-sm" onClick={() => { void handleShare(); }}>
               <Camera className="w-4 h-4 mr-2" />
               Compartilhar
             </Button>

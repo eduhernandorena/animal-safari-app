@@ -5,6 +5,12 @@ export interface MapPosition {
   y: number;
 }
 
+/** Coordenadas GPS reais do recinto/ponto de interesse (medidas in loco) */
+export interface GpsCoords {
+  lat: number;
+  lng: number;
+}
+
 export interface Animal {
   id: string;
   name: string;
@@ -23,4 +29,6 @@ export interface Animal {
   conservation: string;
   location: string;
   mapPosition: MapPosition;
+  /** Coordenadas GPS reais do recinto (quando disponíveis) */
+  gpsPosition?: GpsCoords;
 }
